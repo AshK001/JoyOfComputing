@@ -1,51 +1,4 @@
 import random
-pp1name=input("Please enter your name Player 1");
-pp2name=input("Please enter your name Player 2");
-pp1=0;
-pp2=0;
-turn=0;
-movies=[];
-want_to_play=True;
-while(want_to_play):
-    if turn%2==0 :
-        while(want_to_play):
-            print("It is your turn to guess the movie",pp1name);
-            selected_movie=random.choice(movies);
-            ques=make_ques(select_movie);
-            print("Guess the movie",ques);
-            answer=ask_ques(ques,selected_movie);
-            prev_answ=answer;
-            if answer==select_movie:
-                print("You have choosen the right movie", pp1name);
-                pp1+=1;
-            else:
-                print("Your answer was incorrect");
-                want_to_play=int(input("Do you want to play further, press 1 or 0"));
-                turn+=1;
-                if(want_to_play):
-                    pass;
-                else:
-                    break;
-    
-    else:
-        while(want_to_play):
-            print("It is your turn to guess the movie",pp2name);
-            selected_movie=random.choice(movies);
-            ques=make_ques(select_movie);
-            print("Guess the movie",ques);
-            answer=ask_ques(ques,selected_movie);
-            if answer==select_movie:
-                print("You have choosen the right movie", pp2name);
-                pp2+=1;
-            else:
-                print("Your answer was incorrect");
-                turn+=1;
-                want_to_play=int(input("Do you want to play further, press 1 or 0"))
-                if(want_to_play):
-                    pass;
-                else:
-                    break;
-
 def make_ques(movie):
     n=len(movie);
     q=[];
@@ -59,14 +12,67 @@ def make_ques(movie):
 
 def ask_ques(ques,selected_movie):
     ans=[];
-    letter=input(("What is your first guess letter( you may want to start with vowels)"));
+    letter=input(("What is your first guess letter(you may want to start with vowels)"));
     n=len(ques);
     for i in range(n):
         if letter==selected_movie[i]:
             ans.append(letter);
         else:
             ans.append('*');
-    return ans;
+    prev_answ=''.join(ans);
+    return prev_answ;
+pp1name=input("Please enter your name Player 1");
+pp2name=input("Please enter your name Player 2");
+pp1=0;
+pp2=0;
+turn=0;
+movies=['Pappu','Lappu','Jhappu','Tappu'];
+want_to_play=True;
+while(want_to_play):
+    if turn%2==0 :
+        print("It is your turn to guess the movie",pp1name);
+        selected_movie=random.choice(movies);
+        ques=make_ques(selected_movie);
+        print("Guess the movie",ques);
+        while(True):
+            prev_answer=ask_ques(ques,selected_movie);
+            if prev_answer==selected_movie:
+                print("You have choosen the right movie", pp1name);
+                pp1+=1;
+                print("Your Score", pp1)
+                break;
+            else:
+                print(prev_answer)
+                print("You may want to guess again or do you want to quit?");
+                flag=int(input("Press 1 to continue or 0 to quit"))
+                if(flag):
+                    ques=prev_answer;
+                else:
+                    want_to_play=False;
+                    break;
+                
+    else:
+        print("It is your turn to guess the movie",pp1name);
+        selected_movie=random.choice(movies);
+        ques=make_ques(selected_movie);
+        print("Guess the movie",ques);
+        while(True):
+            prev_answer=ask_ques(ques,selected_movie);
+            if answer==selected_movie:
+                print("You have choosen the right movie", pp1name);
+                pp1+=1;
+                print("Your Score", pp1)
+                break;
+            else:
+                print(prev_answer)
+                print("You may want to guess again or do you want to quit?");
+                flag=int(input("Press 1 to continue or 0 to quit"))
+                if(flag):
+                    ques=prev_answer;
+                else:
+                    want_to_play=False;
+                    break;
+
 
 
 
